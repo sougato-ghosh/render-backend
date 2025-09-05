@@ -12,7 +12,7 @@ class NoteListCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Note.objects.filter(author=user)
+        return Note.objects.filter(author=user).order_by("-using_date")
 
     def perform_create(self, serializer):
         if serializer.is_valid():
@@ -26,7 +26,7 @@ class NoteUpdate(generics.UpdateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Note.objects.filter(author=user)
+        return Note.objects.filter(author=user).order_by("-using_date")
 
 class NoteDelete(generics.DestroyAPIView):
     serializer_class = NoteSerializer
@@ -34,7 +34,7 @@ class NoteDelete(generics.DestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Note.objects.filter(author=user)
+        return Note.objects.filter(author=user).order_by("-using_date")
 
 
 class CreateUserView(generics.CreateAPIView):
